@@ -51,7 +51,7 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
                     val exp = hasilJawaban!!.split("|").toTypedArray()
                     binding.txHasilPenyakit.text = "\nGejala:\n"+exp[0]
                     binding.txSolusiPenyakit.setMovementMethod(ScrollingMovementMethod())
-                    binding.txSolusiPenyakit.text = Html.fromHtml("<br><br>Solusi: "+exp[1]+"")
+                    binding.txSolusiPenyakit.text = Html.fromHtml("Solusi: "+exp[1]+"")
                     Log.d("URL Picture", "onCreate: "+exp[2])
 
                     // Declaring executor to parse the URL
