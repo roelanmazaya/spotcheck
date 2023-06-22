@@ -8,6 +8,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -50,8 +51,8 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
                 viewModel.calculateKNN(hasilJawaban, dataResults, 1)
                 viewModel.hasilPenyakit.observe(this) { hasilJawaban ->
                     val exp = hasilJawaban!!.split("|").toTypedArray()
-                    binding.txHasilPenyakit.text = "Gejala: \n"+exp[0]
-                    binding.txSolusiPenyakit.text = "\n\nSolusi: \n"+exp[1]
+                    binding.txHasilPenyakit.text = Html.fromHtml("<br><u>Gejala:</u> <br><br><b>"+exp[0]+"</b>")
+                    binding.txSolusiPenyakit.text = Html.fromHtml("<br><br><u>Solusi:</u> <br><b>"+exp[1]+"</b>")
                     Log.d("URL Picture", "onCreate: "+exp[2])
 
                     // Declaring executor to parse the URL
