@@ -1,18 +1,15 @@
 package com.example.spotcheck
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Html
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +19,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.Executors
+
 
 class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: UserHasilPageBinding
@@ -51,8 +49,9 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
                 viewModel.calculateKNN(hasilJawaban, dataResults, 1)
                 viewModel.hasilPenyakit.observe(this) { hasilJawaban ->
                     val exp = hasilJawaban!!.split("|").toTypedArray()
-                    binding.txHasilPenyakit.text = Html.fromHtml("<br><u>Gejala:</u> <br><br><b>"+exp[0]+"</b>")
-                    binding.txSolusiPenyakit.text = Html.fromHtml("<br><br><u>Solusi:</u> <br><b>"+exp[1]+"</b>")
+                    binding.txHasilPenyakit.text = "\nGejala:\n"+exp[0]
+                    binding.txSolusiPenyakit.setMovementMethod(ScrollingMovementMethod())
+                    binding.txSolusiPenyakit.text = Html.fromHtml("<br><br>Solusi: "+exp[1]+"")
                     Log.d("URL Picture", "onCreate: "+exp[2])
 
                     // Declaring executor to parse the URL
