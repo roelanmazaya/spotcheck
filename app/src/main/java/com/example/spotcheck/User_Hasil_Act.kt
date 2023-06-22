@@ -38,14 +38,11 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
         auth = Firebase.auth
         hasilJawaban = intent.getIntegerArrayListExtra("hasil_penyakit") ?: ArrayList()
 
-//        println("Hasil Jawaban : "+hasilJawaban)
         Log.d("Hasil Jawaban", "onCreate: "+hasilJawaban)
 
 
         firestore = FirebaseFirestore.getInstance()
-//
         binding.btnbacktohome.setOnClickListener(this)
-//
         val firestoreRepo = FirestoreRepositoryHasil()
         firestoreRepo.getDataResults { dataResults ->
             if (dataResults.isNotEmpty()) {
