@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/k">
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="210dp"
+        android:layout_height="33dp"
+        android:fontFamily="serif"
+        android:text="Data Penyakit"
+        android:textAlignment="center"
+        android:textColor="#040404"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061" />
+
+    <ListView
+        android:id="@+id/lvDataHasil"
+        android:layout_width="370dp"
+        android:layout_height="530dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView30"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnTambahPenyakitAdmin"
+        android:layout_width="290dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#D1727A"
+        android:fontFamily="serif"
+        android:text="Tambah Data Penyakit"
+        android:textAllCaps="false"
+        android:textColor="#F6F5F5"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvDataHasil"
+        app:layout_constraintVertical_bias="0.107" />
+</androidx.constraintlayout.widget.ConstraintLayout>

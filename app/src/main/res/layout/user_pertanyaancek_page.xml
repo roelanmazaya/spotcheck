@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBCACA">
+
+    <TextView
+        android:id="@+id/txPertanyaanPage"
+        android:layout_width="255dp"
+        android:layout_height="123dp"
+        android:fontFamily="serif"
+        android:text="pertanyaan"
+        android:textAlignment="center"
+        android:textColor="#0B0B0B"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.358" />
+
+    <Button
+        android:id="@+id/btnBenarPage"
+        android:layout_width="105dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#F691A9"
+        android:text="Benar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txPertanyaanPage"
+        app:layout_constraintVertical_bias="0.143" />
+
+    <Button
+        android:id="@+id/btnTidakPage"
+        android:layout_width="105dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#F691A9"
+        android:text="Tidak"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/btnBenarPage"
+        app:layout_constraintTop_toBottomOf="@+id/txPertanyaanPage"
+        app:layout_constraintVertical_bias="0.143" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

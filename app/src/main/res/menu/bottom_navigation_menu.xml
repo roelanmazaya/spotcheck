@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/home1"
+        android:fontFamily="@font/fredoka_one"
+        android:title="Beranda" />
+    <item
+        android:id="@+id/menu_history"
+        android:icon="@drawable/history"
+        android:fontFamily="@font/fredoka_one"
+        android:title="Riwayat" />
+    <item
+        android:id="@+id/menu_profil"
+        android:icon="@drawable/user1"
+        android:fontFamily="@font/fredoka_one"
+        android:title="Profil" />
+</menu>

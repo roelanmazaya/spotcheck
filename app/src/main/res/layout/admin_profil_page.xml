@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/b24">
+
+    <ImageView
+        android:id="@+id/imageView3Admin"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.205"
+        app:srcCompat="@drawable/shadow" />
+
+    <ImageView
+        android:id="@+id/ImageProfilUserAdmin"
+        android:layout_width="107dp"
+        android:layout_height="107dp"
+        android:background="@drawable/user3"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.214"
+        app:srcCompat="@drawable/user3" />
+
+    <ImageButton
+        android:id="@+id/btnEditProfilAdmin"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="208dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/edit6"
+        app:layout_constraintEnd_toEndOf="@+id/ImageProfilUserAdmin"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ImageProfilUserAdmin"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txUsernameAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Username Admin"
+        android:textColor="#020202"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393" />
+
+    <TextView
+        android:id="@+id/txEmailAdmin"
+        android:layout_width="72dp"
+        android:layout_height="27dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Email :"
+        android:textColor="#020202"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txUsernameAdmin"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <TextView
+        android:id="@+id/txUsiaAdmin"
+        android:layout_width="72dp"
+        android:layout_height="27dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Usia    :"
+        android:textColor="#020202"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txEmailAdmin"
+        app:layout_constraintVertical_bias="0.031" />
+
+    <TextView
+        android:id="@+id/txEmailProfilAdmin"
+        android:layout_width="234dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/poppins"
+        android:text="emailadmin@gmail.com"
+        android:textColor="#020202"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txEmailAdmin"
+        app:layout_constraintTop_toBottomOf="@+id/txUsernameAdmin"
+        app:layout_constraintVertical_bias="0.068" />
+
+    <TextView
+        android:id="@+id/txUsiaProfilAdmin"
+        android:layout_width="234dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/poppins"
+        android:text="20"
+        android:textColor="#020202"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txUsiaAdmin"
+        app:layout_constraintTop_toBottomOf="@+id/txEmailProfilAdmin"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <ImageButton
+        android:id="@+id/btnKeluarAdmin"
+        android:layout_width="179dp"
+        android:layout_height="71dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.848"
+        app:srcCompat="@drawable/keluar3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
