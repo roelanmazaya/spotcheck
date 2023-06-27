@@ -31,6 +31,11 @@
         <activity android:name=".User_PertanyaanCek_Act"/>
         <activity android:name=".User_Hasil_Act"/>
         <activity android:name=".Admin_Dashboard"/>
+        <activity android:name=".Admin_Pertanyaan"/>
+        <activity android:name=".Admin_TambahPertanyaan"/>
+        <activity android:name=".Admin_EditPertanyaan"/>
+        <activity android:name=".Admin_Penyakit"/>
+        <activity android:name=".Admin_TambahPenyakit"/>
 
 
 

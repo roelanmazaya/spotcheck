@@ -12,8 +12,10 @@ class KNNClassifier(private val k: Int, private val dataResults: List<DataHasil>
         val distances_solusi = mutableListOf<Pair<Double, String>>()
         val distances_pict = mutableListOf<Pair<Double, String>>()
 
+        var total_row = dataResults.size - 1
+        var i = 1
         for (dataResult in dataResults) {
-            if(dataResult.id != 0) {
+            if(i <= total_row) {
                 Log.d("Hasil ", "classify: "+dataResult.hasil+", arrayHasil :"+dataResult.arrayHasil)
                 Log.d("Hasil Jawaban", "classify: "+hasilJawaban)
                 val distance = euclideanDistance(hasilJawaban, dataResult.arrayHasil)
@@ -21,6 +23,7 @@ class KNNClassifier(private val k: Int, private val dataResults: List<DataHasil>
                 distances_solusi.add(distance to dataResult.solusi)
                 distances_pict.add(distance to dataResult.pict)
             }
+            i++
         }
 
         val sortedDistances = distances.sortedBy { it.first }

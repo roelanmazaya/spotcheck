@@ -2,6 +2,7 @@ package com.example.spotcheck
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,7 @@ class Admin_PertanyaanFragment : Fragment(), View.OnClickListener {
         listPertanyaan = ArrayList()
         db.collection("pertanyaan").get()
             .addOnSuccessListener { result ->
+                Log.d("Pertanyaan", "onStart: "+result)
                 if (!result.isEmpty) {
                     val listDoc: List<DocumentSnapshot> = result.documents
                     for (d in listDoc) {
