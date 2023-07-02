@@ -36,6 +36,7 @@
         <activity android:name=".Admin_EditPertanyaan"/>
         <activity android:name=".Admin_Penyakit"/>
         <activity android:name=".Admin_TambahPenyakit"/>
+        <activity android:name=".Admin_EditPenyakit"/>
 
 
 

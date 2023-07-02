@@ -40,16 +40,24 @@ class Admin_Penyakit : AppCompatActivity(), View.OnClickListener {
 //        }
 
         binding.lvDataHasil.setOnItemClickListener { parent, view, position, id ->
-            Toast.makeText(this,  "Edit data penyakit belum bisa diakses", Toast.LENGTH_LONG).show()
-//            val intent = Intent(this, Admin_EditPertanyaan::class.java)
-//            intent.putExtra("docId", listPenyakit.get(position).docId)
-//            intent.putExtra("id", listPenyakit.get(position).id.toString())
-//            intent.putExtra("hasil", listPenyakit.get(position).hasil)
-//            intent.putExtra("pict", listPenyakit.get(position).pict)
-//            intent.putExtra("solusi", listPenyakit.get(position).solusi)
-//            intent.putExtra("array_hasil", listPenyakit.get(position).array_hasil)
-//            intent.putExtra("index_ke", position.toString())
-//            startActivity(intent)
+//            Toast.makeText(this,  "Edit data penyakit belum bisa diakses", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, Admin_EditPenyakit::class.java)
+            intent.putExtra("docId", listPenyakit.get(position).docId)
+            intent.putExtra("id", listPenyakit.get(position).id.toString())
+            intent.putExtra("hasil", listPenyakit.get(position).hasil)
+            intent.putExtra("pict", listPenyakit.get(position).pict)
+            intent.putExtra("solusi", listPenyakit.get(position).solusi)
+            val arr_hasil = listPenyakit.get(position).array_hasil
+            var array_hasil = ""
+            if (arr_hasil != null) {
+                for (i in arr_hasil){
+                    array_hasil += i.toString()
+                }
+            }
+            intent.putExtra("array_hasil", arr_hasil!!.joinToString())
+            intent.putExtra("index_ke", position.toString())
+            Log.d("Array_Hasil_Old", "onCreate: "+listPenyakit.get(position).array_hasil)
+            startActivity(intent)
         }
     }
 
@@ -96,9 +104,9 @@ class Admin_Penyakit : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnTambahPenyakitAdmin -> {
-                Toast.makeText(this, "Belum bisa diakses", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, Admin_TambahPenyakit::class.java)
-//                startActivity(intent)
+//                Toast.makeText(this, "Belum bisa diakses", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, Admin_TambahPenyakit::class.java)
+                startActivity(intent)
             }
         }
     }

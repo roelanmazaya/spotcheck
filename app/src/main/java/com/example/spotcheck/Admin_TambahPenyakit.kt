@@ -1,5 +1,6 @@
 package com.example.spotcheck
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -29,6 +30,7 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener{
     private var last_id = 0
     var total_row = 0
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = AdminTambahpenyakitPageBinding.inflate(layoutInflater)
@@ -63,7 +65,7 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener{
                 if (!result.isEmpty) {
                     val listDoc: List<DocumentSnapshot> = result.documents
                     total_row = listDoc.size - 1
-                       Toast.makeText(this, total_row.toString(), Toast.LENGTH_SHORT).show()
+//                       Toast.makeText(this, total_row.toString(), Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -86,50 +88,48 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener{
                val pict = binding.inputGambarPenyakitAdmin.text.trim().toString()
                val solusi = binding.inputSolusiAdmin.text.trim().toString()
                val arr_hasil = binding.inputArrayPenyakitAdmin.text.trim().toString()
-               val exp_hasil = arr_hasil.trim().split(",").toTypedArray()
+               val exp_hasil = arr_hasil.split(",")
 
                var listHasil: ArrayList<Int>
                listHasil = ArrayList()
+               listHasil.clear()
+//               Log.d("Total Penyakit", "onClick: "+total_row)
 
                if(exp_hasil.size < total_row){
-                   Toast.makeText(this, "Array Penyakit tidak boleh kurang dari "+total_row.toString(), Toast.LENGTH_SHORT).show()
+                   Toast.makeText(this, "Array Penyakit yang diinputkan (${exp_hasil.size}) tidak boleh kurang dari "+total_row.toString(), Toast.LENGTH_LONG).show()
                    binding.inputArrayPenyakitAdmin.requestFocus()
                }else if(exp_hasil.size > total_row){
-                   Toast.makeText(this, "Array Penyakit tidak boleh lebih dari "+total_row.toString(), Toast.LENGTH_SHORT).show()
+                   Toast.makeText(this, "Array Penyakit yang diinputkan (${exp_hasil.size}) tidak boleh lebih dari "+total_row.toString(), Toast.LENGTH_LONG).show()
                    binding.inputArrayPenyakitAdmin.requestFocus()
                }else{
                    for (i in exp_hasil)
                    {
-                       if(i.toInt() != 1 || i.toInt() != -1){
-                           Toast.makeText(this, "Array Penyakit hanya boleh diisi angka 1 atau -1", Toast.LENGTH_SHORT).show()
-                           return
-                       }else{
-                           listHasil.add(i.toInt())
-                       }
+                       listHasil.add(i.trim().toInt())
+//                       Log.d("Array_Hasil_Insert", "onClick: "+i)
                    }
 
-                   Log.d("Array_Hasil_Insert", "onClick: "+listHasil.size)
+//                   Log.d("Array_Hasil_Insert", "onClick: "+listHasil.size)
 
-//                   val hasil = Hasil(id.toInt(), penyakit, pict, solusi, listHasil)
-//
-//                   db.collection("hasil")
-//                       .document(id)
-//                       .set(hasil)
-//                       .addOnSuccessListener {
-//                           Toast.makeText(
-//                               this,
-//                               "Data penyakit ditambahkan!",
-//                               Toast.LENGTH_SHORT
-//                           ).show()
-//                           finish()
-//                       }
-//                       .addOnFailureListener { e ->
-//                           Toast.makeText(
-//                               this,
-//                               "Gagal: ${e.message}",
-//                               Toast.LENGTH_SHORT
-//                           ).show()
-//                       }
+                   val hasil = Hasil(id.toInt(), penyakit, pict, solusi, listHasil)
+
+                   db.collection("hasil")
+                       .document(id)
+                       .set(hasil)
+                       .addOnSuccessListener {
+                           Toast.makeText(
+                               this,
+                               "Data penyakit ditambahkan!",
+                               Toast.LENGTH_SHORT
+                           ).show()
+                           finish()
+                       }
+                       .addOnFailureListener { e ->
+                           Toast.makeText(
+                               this,
+                               "Gagal: ${e.message}",
+                               Toast.LENGTH_SHORT
+                           ).show()
+                       }
                }
 
            }
