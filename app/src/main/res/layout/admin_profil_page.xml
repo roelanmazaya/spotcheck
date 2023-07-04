@@ -35,10 +35,22 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="208dp"
-        android:background="@android:color/transparent"
+        android:background="@android:color/background_light"
         android:src="@drawable/edit6"
         app:layout_constraintEnd_toEndOf="@+id/ImageProfilUserAdmin"
         app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ImageProfilUserAdmin"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnDeleteProfil"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="208dp"
+        android:background="@android:color/background_light"
+        android:src="@drawable/baseline_delete_outline_24"
+        app:layout_constraintEnd_toEndOf="@+id/ImageProfilUserAdmin"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ImageProfilUserAdmin"
         app:layout_constraintTop_toTopOf="parent" />
 

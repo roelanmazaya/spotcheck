@@ -25,12 +25,16 @@ class LoginAct : AppCompatActivity(), View.OnClickListener {
     private lateinit var db: FirebaseFirestore
     private var isPasswordVisible = false
     var currentUser: FirebaseUser? = null
+    private lateinit var prefManager: PrefManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LoginPageBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        prefManager = PrefManager(this)
 
         auth = Firebase.auth
         db = Firebase.firestore
@@ -48,6 +52,14 @@ class LoginAct : AppCompatActivity(), View.OnClickListener {
                             .get()
                             .addOnSuccessListener { snapshot ->
                                 val user = snapshot.toObject<User>()
+
+                                prefManager.setLoggin(true)
+                                prefManager.setEmail(email)
+                                prefManager.setRole(user!!.role)
+                                prefManager.setNama(user!!.nama)
+                                prefManager.setId(user!!.id)
+                                prefManager.setUsia(user!!.usia.toString())
+
                                 if (user!!.role == "admin") {
                                     val intent = Intent(this, Admin_Dashboard::class.java)
                                     startActivity(intent)

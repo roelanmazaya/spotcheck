@@ -38,7 +38,7 @@ class DaftarAct : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val uid = auth.currentUser!!.uid
-                        val user = User(uid, email, role = "umum", nama, usia)
+                        val user = User(uid, email, role = "umum", "", nama, usia)
 
                         db.collection("users")
                             .document(uid)

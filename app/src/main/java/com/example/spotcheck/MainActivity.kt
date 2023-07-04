@@ -17,12 +17,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
     lateinit var auth : FirebaseAuth
     var currentUser : FirebaseUser? = null
+    private lateinit var prefManager: PrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+        prefManager = PrefManager(this)
+        checkLogin()
 
         binding.btnMasukMain
         binding.btnDaftarMain
@@ -36,6 +41,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.btnDaftarMain.setOnClickListener {
             val intent = Intent(this, DaftarAct::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        checkLogin()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkLogin()
+    }
+
+    private fun checkLogin(){
+        if (prefManager.isLogin()!!){
+            if (prefManager.getRole() == "admin") {
+                val intent = Intent(this, Admin_Dashboard::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this, User_Dashboard::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

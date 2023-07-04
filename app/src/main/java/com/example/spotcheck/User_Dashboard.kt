@@ -3,6 +3,7 @@ package com.example.spotcheck
 import User_HistoryFragment
 import User_HomeFragment
 import User_ProfilFragment
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -18,12 +19,15 @@ class User_Dashboard : AppCompatActivity(){
     private lateinit var binding: UserDashboardPageBinding
     lateinit var auth: FirebaseAuth
     var currentUser: FirebaseUser? = null
+    private lateinit var prefManager: PrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = UserDashboardPageBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        prefManager = PrefManager(this)
+        checkLogin()
 
 
         auth = Firebase.auth
@@ -53,6 +57,14 @@ class User_Dashboard : AppCompatActivity(){
         }
 
         bottomNavigationView.selectedItemId = R.id.menu_home // Menandai menu_home sebagai menu yang aktif secara default
+    }
+
+    private fun checkLogin(){
+        if (prefManager.isLogin() == false){
+            val intent = Intent(this, LoginAct::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun showFragment(fragment: Fragment) {
