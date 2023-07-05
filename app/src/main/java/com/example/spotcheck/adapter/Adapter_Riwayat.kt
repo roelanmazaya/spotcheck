@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.spotcheck.R
-import com.example.spotcheck.models.Penyakit
 import com.example.spotcheck.models.Riwayat
+import com.example.spotcheck.models.Riwayat_model
 
-class Adapter_Riwayat (var mCtx: Context, var resource:Int, var items:List<Riwayat>)
-    : ArrayAdapter<Riwayat>( mCtx , resource , items ){
+class Adapter_Riwayat(var mCtx: Context, var resource:Int, var items: MutableList<Riwayat_model>)
+    : ArrayAdapter<Riwayat_model>( mCtx , resource , items ){
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
@@ -22,10 +22,10 @@ class Adapter_Riwayat (var mCtx: Context, var resource:Int, var items:List<Riway
         var tvPenyakit : TextView = view.findViewById(R.id.tvPenyakit)
 
 
-        var riwayat : Riwayat = items[position]
+        var riwayat : Riwayat_model = items[position]
 
-        tvPenyakit.text = riwayat.hasil
-        tvCreatedAt.text = riwayat.created_at
+        tvPenyakit.text = riwayat.no.toString()+". "+riwayat.hasil
+        tvCreatedAt.text = "("+riwayat.created_at+")"
 
 
         return view
