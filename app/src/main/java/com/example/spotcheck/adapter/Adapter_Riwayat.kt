@@ -24,7 +24,8 @@ class Adapter_Riwayat(var mCtx: Context, var resource:Int, var items: MutableLis
 
         var riwayat : Riwayat_model = items[position]
 
-        tvPenyakit.text = riwayat.no.toString()+". "+riwayat.hasil
+//        tvPenyakit.text = riwayat.no.toString()+". "+riwayat.hasil
+        tvPenyakit.text = riwayat.hasil
         tvCreatedAt.text = "("+riwayat.created_at+")"
 
 
