@@ -10,11 +10,10 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="serif"
+        android:fontFamily="@font/fredoka_one"
         android:text="Data Pertanyaan"
         android:textColor="#0E0E0E"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,8 +22,8 @@
 
     <ListView
         android:id="@+id/lvDataPertanyaan"
-        android:layout_width="355dp"
-        android:layout_height="493dp"
+        android:layout_width="357dp"
+        android:layout_height="515dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,10 +36,11 @@
         android:layout_width="333dp"
         android:layout_height="50dp"
         android:backgroundTint="#D1727A"
-        android:text="Tambah"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Tambah Pertanyaan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lvDataPertanyaan"
-        app:layout_constraintVertical_bias="0.177" />
+        app:layout_constraintVertical_bias="0.308" />
 </androidx.constraintlayout.widget.ConstraintLayout>

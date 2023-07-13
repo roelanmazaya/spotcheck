@@ -10,7 +10,7 @@
         android:id="@+id/txPertanyaanPage"
         android:layout_width="255dp"
         android:layout_height="123dp"
-        android:fontFamily="serif"
+        android:fontFamily="@font/poppins"
         android:text="pertanyaan"
         android:textAlignment="center"
         android:textColor="#0B0B0B"
@@ -22,30 +22,75 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.358" />
 
-    <Button
-        android:id="@+id/btnBenarPage"
-        android:layout_width="105dp"
-        android:layout_height="55dp"
-        android:backgroundTint="#F691A9"
-        android:text="Benar"
+    <ImageButton
+        android:id="@+id/btnKembali"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/buttonback2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.085" />
+
+    <RadioButton
+        android:id="@+id/btnBenarPage"
+        android:layout_width="98dp"
+        android:layout_height="55dp"
+        android:fontFamily="@font/poppins"
+        android:text="Benar"
+        android:textColor="#0B0B0B"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.258"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txPertanyaanPage"
-        app:layout_constraintVertical_bias="0.143" />
+        app:layout_constraintVertical_bias="0.214" />
 
-    <Button
+    <RadioButton
         android:id="@+id/btnTidakPage"
-        android:layout_width="105dp"
+        android:layout_width="98dp"
         android:layout_height="55dp"
-        android:backgroundTint="#F691A9"
+        android:fontFamily="@font/poppins"
         android:text="Tidak"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#070707"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBenarPage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toEndOf="@+id/btnBenarPage"
-        app:layout_constraintTop_toBottomOf="@+id/txPertanyaanPage"
-        app:layout_constraintVertical_bias="0.143" />
+        app:layout_constraintHorizontal_bias="0.725"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnBenarPage"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/buttonnext"
+        app:layout_constraintBottom_toBottomOf="@+id/btnKembali"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnKembali"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <TextView
+        android:id="@+id/txNoPertanyaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka_one"
+        android:text="NO"
+        android:textColor="#070707"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnKembali"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnKembali"
+        app:layout_constraintVertical_bias="0.533" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

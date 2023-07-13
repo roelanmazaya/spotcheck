@@ -14,6 +14,7 @@ class KNNClassifier(private val k: Int, private val dataResults: List<DataHasil>
 
         var total_row = dataResults.size - 1
         var i = 1
+        // Perulangan/lopping untuk mengelompokkan hasil jawaban yang didapat
         for (dataResult in dataResults) {
             if(i <= total_row) {
                 Log.d("Hasil ", "classify: "+dataResult.hasil+", arrayHasil :"+dataResult.arrayHasil)
@@ -25,7 +26,7 @@ class KNNClassifier(private val k: Int, private val dataResults: List<DataHasil>
             }
             i++
         }
-
+// Proses pengurutan jarak dan pencarian tetangga terdekat
         val sortedDistances = distances.sortedBy { it.first }
         val kNearest = sortedDistances.take(k)
         val counts = kNearest.groupingBy { it.second }.eachCount()
@@ -43,7 +44,7 @@ class KNNClassifier(private val k: Int, private val dataResults: List<DataHasil>
 
         return predictedClass+"|"+predictedClass_solusi+"|"+predictedClass_pict
     }
-
+// Fungsi yang digunakan untuk menghitung jarak euclidean antara 2 vektor yaitu hasil dan datapenyakit dalam database
     private fun euclideanDistance(point1: List<Int>, point2: List<Int>): Double {
         var sum = 0.0
         for (i in point1.indices) {

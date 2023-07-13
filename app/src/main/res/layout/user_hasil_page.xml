@@ -11,17 +11,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/b23">
+        android:background="@drawable/b2">
 
         <TextView
             android:id="@+id/txHasilPenyakit"
             android:layout_width="325dp"
             android:layout_height="wrap_content"
-            android:fontFamily="serif"
+            android:fontFamily="@font/poppins"
             android:text="@{viewModel.hasilPenyakit}"
             android:textAlignment="center"
             android:textColor="#090909"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,7 @@
             android:layout_height="242dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="150dp"
-            android:fontFamily="serif"
+            android:fontFamily="@font/poppins"
             android:scrollbars="vertical"
             android:text="@{viewModel.hasilPenyakit}"
             android:textAlignment="textStart"
@@ -54,7 +55,7 @@
             android:id="@+id/textView38"
             android:layout_width="280dp"
             android:layout_height="38dp"
-            android:fontFamily="serif"
+            android:fontFamily="@font/poppins"
             android:text="Berikut adalah hasil deteksi masalah kulit wajah anda:"
             android:textAlignment="center"
             android:textColor="#050505"
@@ -74,7 +75,6 @@
             android:textAlignment="center"
             android:textColor="#040404"
             android:textSize="24sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,10 +85,11 @@
             android:id="@+id/btnbacktohome"
             android:layout_width="242dp"
             android:layout_height="53dp"
+            android:layout_marginTop="500dp"
             android:backgroundTint="#F691A9"
+            android:fontFamily="@font/fredoka_one"
             android:text="Kembali ke beranda"
             android:textColor="#050505"
-            android:layout_marginTop="500dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -107,6 +108,32 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.224"
             app:srcCompat="@drawable/imagehasilpenyakit4" />
+
+        <ImageButton
+            android:id="@+id/btnBackHasil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/back_kecil"
+            app:layout_constraintBottom_toBottomOf="@+id/imgHasilPenyakit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgHasilPenyakit"
+            app:layout_constraintVertical_bias="0.52" />
+
+        <ImageButton
+            android:id="@+id/btnNextHasil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/next_kecil"
+            app:layout_constraintBottom_toBottomOf="@+id/imgHasilPenyakit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.942"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgHasilPenyakit"
+            app:layout_constraintVertical_bias="0.529" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

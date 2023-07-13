@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.spotcheck.databinding.UserHasilPageBinding
-import com.example.spotcheck.models.Pertanyaan
 import com.example.spotcheck.models.Riwayat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -102,7 +101,7 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
                             Log.d("Insert Riwayat", "onCreate: Gagal: ${e.message}")
                         }
 
-                    binding.txHasilPenyakit.text = "\nGejala:\n"+exp[0]
+                    binding.txHasilPenyakit.text = exp[0]
                     binding.txSolusiPenyakit.setMovementMethod(ScrollingMovementMethod())
                     binding.txSolusiPenyakit.text = Html.fromHtml("Solusi: "+exp[1]+"")
                     Log.d("URL Picture", "onCreate: "+exp[2])
@@ -123,7 +122,6 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
 
                         // Image URL
                         val imageURL = exp[2]
-//                        val imageURL = "https://drive.google.com/file/d/1sWPKTtC6FmoMnqH3ghc9vBqZvRNcsjkg/view"
 
                         // Tries to get the image and post it in the ImageView
                         // with the help of Handler
@@ -167,7 +165,6 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
             val intent = Intent(this, LoginAct::class.java)
             startActivity(intent)
             finish()
-//            requireActivity().getFragmentManager().popBackStack()
         }
     }
 

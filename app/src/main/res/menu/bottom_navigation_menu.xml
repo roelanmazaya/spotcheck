@@ -5,7 +5,7 @@
         android:fontFamily="@font/fredoka_one"
         android:title="Beranda" />
     <item
-        android:id="@+id/menu_history"
+        android:id="@+id/menu_riwayat"
         android:icon="@drawable/history"
         android:fontFamily="@font/fredoka_one"
         android:title="Riwayat" />

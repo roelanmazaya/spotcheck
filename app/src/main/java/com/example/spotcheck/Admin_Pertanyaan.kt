@@ -36,12 +36,9 @@ class Admin_Pertanyaan : AppCompatActivity(), View.OnClickListener {
 
         binding.btnTambahQAdmin.setOnClickListener(this)
 
-//        if (listPertanyaan.isNotEmpty()) {
-//            binding.lvDataPertanyaan.adapter = listAdapter
-//        }
+
 
         binding.lvDataPertanyaan.setOnItemClickListener { parent, view, position, id ->
-//            Toast.makeText(this, position.toString(), Toast.LENGTH_SHORT).show()
             val intent = Intent(this, Admin_EditPertanyaan::class.java)
             intent.putExtra("docId", listPertanyaan.get(position).docId)
             intent.putExtra("id", listPertanyaan.get(position).id.toString())

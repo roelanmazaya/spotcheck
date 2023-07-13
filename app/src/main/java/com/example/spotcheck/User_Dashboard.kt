@@ -42,11 +42,12 @@ class User_Dashboard : AppCompatActivity(){
                     showFragment(fragment)
                     true
                 }
-                R.id.menu_history -> {
+                R.id.menu_riwayat -> {
                     val fragment = User_HistoryFragment()
                     showFragment(fragment)
                     true
                 }
+
                 R.id.menu_profil -> {
                     val fragment = User_ProfilFragment()
                     showFragment(fragment)

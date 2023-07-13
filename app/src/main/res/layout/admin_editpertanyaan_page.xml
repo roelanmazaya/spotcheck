@@ -10,44 +10,40 @@
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="serif"
+        android:fontFamily="@font/fredoka_one"
         android:text="Edit Pertanyaan"
         android:textColor="#0B0B0B"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintVertical_bias="0.097" />
 
     <TextView
         android:id="@+id/txtIdeditpage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:fontFamily="serif"
+        android:fontFamily="@font/poppins_medium"
         android:text="ID"
         android:textColor="#050505"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintVertical_bias="0.049" />
 
     <TextView
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="serif"
+        android:fontFamily="@font/poppins_medium"
         android:text="Pertanyaan"
         android:textColor="#050505"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.146"
@@ -57,12 +53,14 @@
 
     <EditText
         android:id="@+id/editIDpage"
-        android:layout_width="320dp"
-        android:layout_height="66dp"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
         android:ems="10"
+        android:enabled="false"
+        android:fontFamily="@font/poppins"
         android:hint="ID"
         android:inputType="text"
-        android:enabled="false"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,11 +69,13 @@
 
     <EditText
         android:id="@+id/editPertanyaanpage"
-        android:layout_width="320dp"
-        android:layout_height="67dp"
+        android:layout_width="281dp"
+        android:layout_height="65dp"
         android:ems="10"
+        android:fontFamily="@font/poppins"
         android:hint="Pertanyaan"
         android:inputType="text"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,25 +87,27 @@
         android:layout_width="127dp"
         android:layout_height="54dp"
         android:backgroundTint="#D1727A"
+        android:fontFamily="@font/fredoka_one"
         android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.253"
+        app:layout_constraintHorizontal_bias="0.228"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPertanyaanpage"
-        app:layout_constraintVertical_bias="0.221" />
+        app:layout_constraintVertical_bias="0.219" />
 
     <Button
         android:id="@+id/btnHapusQAdmin"
         android:layout_width="127dp"
         android:layout_height="54dp"
         android:backgroundTint="#D1727A"
+        android:fontFamily="@font/fredoka_one"
         android:text="Hapus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintHorizontal_bias="0.217"
         app:layout_constraintStart_toEndOf="@+id/btnEditQAdmin"
-        app:layout_constraintTop_toBottomOf="@+id/editPertanyaanpage"
-        app:layout_constraintVertical_bias="0.221" />
+        app:layout_constraintTop_toTopOf="@+id/btnEditQAdmin"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

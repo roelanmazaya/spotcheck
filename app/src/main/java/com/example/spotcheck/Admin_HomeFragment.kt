@@ -4,11 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.spotcheck.Admin_EditPenyakitFragment
-import com.example.spotcheck.Admin_PertanyaanFragment
-import com.example.spotcheck.Admin_EditPertanyaanFragment
 import com.example.spotcheck.Admin_Penyakit
-import com.example.spotcheck.Admin_PenyakitFragment
 import com.example.spotcheck.Admin_Pertanyaan
 import com.example.spotcheck.R
 import com.example.spotcheck.databinding.AdminHomePageBinding
@@ -47,11 +43,11 @@ class Admin_HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnPertanyaan -> {
-                val intent = Intent(activity, Admin_PertanyaanFragment::class.java)
+                val intent = Intent(activity, Admin_Pertanyaan::class.java)
                 startActivity(intent)
             }
             R.id.btnPenyakit -> {
-                val intent = Intent(activity, Admin_PenyakitFragment::class.java)
+                val intent = Intent(activity, Admin_Penyakit::class.java)
                 startActivity(intent)
             }
         }
