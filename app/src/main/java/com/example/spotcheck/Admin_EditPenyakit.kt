@@ -34,6 +34,8 @@ class Admin_EditPenyakit : AppCompatActivity(), View.OnClickListener{
     private val F_ID = "id"
     private val F_Hasil = "hasil"
     private val F_Gambar = "pict"
+    private val F_Gambar2 = "pict2"
+    private val F_Gambar3 = "pict3"
     private val F_Array = "array_hasil"
     private val F_Solusi = "solusi"
     private var docId = ""
@@ -61,12 +63,16 @@ class Admin_EditPenyakit : AppCompatActivity(), View.OnClickListener{
         binding.editIDPenyakitAdmin.text.toString()
         binding.editPenyakitAdmin.text.toString()
         binding.editGambarPenyakitAdmin.text.toString()
+        binding.editGambarPenyakitAdmin2.text.toString()
+        binding.editGambarPenyakitAdmin3.text.toString()
         binding.editArrayPenyakitAdmin.text.toString()
         binding.editSolusiAdmin.text.toString()
 
         binding.editIDPenyakitAdmin.setText(docId)
         binding.editPenyakitAdmin.setText(intent.getStringExtra("hasil").toString())
         binding.editGambarPenyakitAdmin.setText(intent.getStringExtra("pict").toString())
+        binding.editGambarPenyakitAdmin2.setText(intent.getStringExtra("pict2").toString())
+        binding.editGambarPenyakitAdmin3.setText(intent.getStringExtra("pict3").toString())
         binding.editSolusiAdmin.setText(intent.getStringExtra("solusi").toString())
 
         binding.editArrayPenyakitAdmin.setText(intent.getStringExtra("array_hasil"))
@@ -122,6 +128,8 @@ class Admin_EditPenyakit : AppCompatActivity(), View.OnClickListener{
                     tp[F_ID] = id.toInt()
                     tp[F_Hasil] = binding.editPenyakitAdmin.text.toString()
                     tp[F_Gambar] = binding.editGambarPenyakitAdmin.text.toString()
+                    tp[F_Gambar2] = binding.editGambarPenyakitAdmin2.text.toString()
+                    tp[F_Gambar3] = binding.editGambarPenyakitAdmin3.text.toString()
                     tp[F_Array] = listHasil
                     tp[F_Solusi] = binding.editSolusiAdmin.text.toString()
 

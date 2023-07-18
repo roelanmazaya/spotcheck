@@ -21,6 +21,15 @@
             android:text="Penyakit"
             android:textColor="#000"
             android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvJmlArray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Jumlah Array"
+            android:textColor="#2C2C2C"
+            android:textSize="11dp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -30,57 +30,51 @@ class Admin_Penyakit : AppCompatActivity(), View.OnClickListener {
         setContentView(view)
 
         listPenyakit = mutableListOf<Penyakit>()
-        listAdapter = Adapter_Penyakit(this,R.layout.item_penyakit, listPenyakit)
+        listAdapter = Adapter_Penyakit(this, R.layout.item_penyakit, listPenyakit)
         binding.lvDataHasil.adapter = listAdapter
 
         binding.btnTambahPenyakitAdmin.setOnClickListener(this)
-
-//        if (listPertanyaan.isNotEmpty()) {
-//            binding.lvDataPertanyaan.adapter = listAdapter
-//        }
-
         binding.lvDataHasil.setOnItemClickListener { parent, view, position, id ->
-//            Toast.makeText(this,  "Edit data penyakit belum bisa diakses", Toast.LENGTH_LONG).show()
             val intent = Intent(this, Admin_EditPenyakit::class.java)
-            intent.putExtra("docId", listPenyakit.get(position).docId)
-            intent.putExtra("id", listPenyakit.get(position).id.toString())
-            intent.putExtra("hasil", listPenyakit.get(position).hasil)
-            intent.putExtra("pict", listPenyakit.get(position).pict)
-            intent.putExtra("solusi", listPenyakit.get(position).solusi)
-            val arr_hasil = listPenyakit.get(position).array_hasil
-            var array_hasil = ""
-            if (arr_hasil != null) {
-                for (i in arr_hasil){
-                    array_hasil += i.toString()
-                }
-            }
-            intent.putExtra("array_hasil", arr_hasil!!.joinToString())
+            intent.putExtra("docId", listPenyakit[position].docId)
+            intent.putExtra("id", listPenyakit[position].id.toString())
+            intent.putExtra("hasil", listPenyakit[position].hasil)
+            intent.putExtra("pict", listPenyakit[position].pict)
+            intent.putExtra("pict2", listPenyakit[position].pict2)
+            intent.putExtra("pict3", listPenyakit[position].pict3)
+            intent.putExtra("solusi", listPenyakit[position].solusi)
+            intent.putExtra("array_hasil", listPenyakit[position].array_hasil?.joinToString())
             intent.putExtra("index_ke", position.toString())
-            Log.d("Array_Hasil_Old", "onCreate: "+listPenyakit.get(position).array_hasil)
             startActivity(intent)
         }
     }
 
-    fun get_penyakit(){
+    private fun getPenyakit() {
         listPenyakit.clear()
         db = Firebase.firestore
         db.collection("hasil").get()
             .addOnSuccessListener { result ->
                 if (!result.isEmpty) {
                     val listDoc: List<DocumentSnapshot> = result.documents
-                    Log.d("Hasil", "get_penyakit: "+listDoc.size)
-                    var total_row = listDoc.size - 1
-                    var i = 1
+                    Log.d("Hasil", "getPenyakit: " + listDoc.size)
                     for (d in listDoc) {
-                        if(i <= total_row){
-                            hasil = d.toObject(Hasil::class.java)!!
-                            listPenyakit.add(Penyakit(d.id, hasil.id, hasil.hasil, hasil.pict, hasil.solusi, hasil.array_hasil))
+                        hasil = d.toObject(Hasil::class.java)!!
+                        if (hasil.hasil != null && !hasil.hasil.isNullOrEmpty()) {
+                            val penyakit = Penyakit(
+                                docId = d.id,
+                                id = hasil.id,
+                                hasil = hasil.hasil,
+                                pict = hasil.pict,
+                                pict2 = hasil.pict2,
+                                pict3 = hasil.pict3,
+                                solusi = hasil.solusi,
+                                array_hasil = hasil.array_hasil
+                            )
+                            listPenyakit.add(penyakit)
                         }
-                        i++
                     }
 
                     listAdapter.notifyDataSetChanged()
-
                 }
             }
             .addOnFailureListener { e ->
@@ -98,17 +92,15 @@ class Admin_Penyakit : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        get_penyakit()
+        getPenyakit()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnTambahPenyakitAdmin -> {
-//                Toast.makeText(this, "Belum bisa diakses", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Admin_TambahPenyakit::class.java)
                 startActivity(intent)
             }
         }
     }
-
 }

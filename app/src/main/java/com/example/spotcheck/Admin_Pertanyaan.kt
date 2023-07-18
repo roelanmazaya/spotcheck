@@ -20,7 +20,6 @@ class Admin_Pertanyaan : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var listAdapter: Adapter_Pertanyaaan
     private lateinit var db: FirebaseFirestore
-//    private lateinit var listPertanyaan: ArrayList<String?>
     private var listPertanyaan = mutableListOf<Pertanyaan_Model>()
     private lateinit var pertanyaan: Pertanyaan
 

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.spotcheck.R
-import com.example.spotcheck.models.Pertanyaan
 import com.example.spotcheck.models.Pertanyaan_Model
 
 class Adapter_Pertanyaaan (var mCtx: Context, var resource:Int, var items:List<Pertanyaan_Model>)

@@ -5,8 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import com.example.spotcheck.databinding.AdminTambahpenyakitPageBinding
 import com.example.spotcheck.models.Hasil
 import com.google.firebase.auth.FirebaseUser
@@ -16,7 +18,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener{
+class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
 
     lateinit var binding: AdminTambahpenyakitPageBinding
 
@@ -42,9 +44,9 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener{
                     for (d in listDoc) {
                         hasil = d.toObject(Hasil::class.java)!!
                         last_id = hasil.id!!
-                        Log.d("Last Id Hasil", "onCreate: "+(last_id+1))
+                        Log.d("Last Id Hasil", "onCreate: " + (last_id + 1))
                     }
-                    binding.inputIDPenyakitAdmin.setText((last_id+1).toString())
+                    binding.inputIDPenyakitAdmin.setText((last_id + 1).toString())
 
                 }
             }.addOnFailureListener { e ->
@@ -75,63 +77,93 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener{
             }
 
         binding.btnTambahPenyakit.setOnClickListener(this)
+        binding.btnMasukkanArray.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-           R.id.btnTambahPenyakit -> {
-               val id = binding.inputIDPenyakitAdmin.text.trim().toString()
-               val penyakit = binding.inputPenyakitAdmin.text.trim().toString()
-               val pict = binding.inputGambarPenyakitAdmin.text.trim().toString()
-               val solusi = binding.inputSolusiAdmin.text.trim().toString()
-               val arr_hasil = binding.inputArrayPenyakitAdmin.text.trim().toString()
-               val exp_hasil = arr_hasil.split(",")
+            R.id.btnTambahPenyakit -> {
+                val id = binding.inputIDPenyakitAdmin.text.trim().toString()
+                val penyakit = binding.inputPenyakitAdmin.text.trim().toString()
+                val pict = binding.inputGambarPenyakitAdmin.text.trim().toString()
+                val pict2 = binding.inputGambarPenyakitAdmin2.text.trim().toString()
+                val pict3 = binding.inputGambarPenyakitAdmin3.text.trim().toString()
+                val solusi = binding.inputSolusiAdmin.text.trim().toString()
+                val arr_hasil = binding.inputArrayPenyakitAdmin.text.trim().toString()
+                val exp_hasil = arr_hasil.split(",")
 
-               var listHasil: ArrayList<Int>
-               listHasil = ArrayList()
-               listHasil.clear()
+                var listHasil: ArrayList<Int>
+                listHasil = ArrayList()
+                listHasil.clear()
 //               Log.d("Total Penyakit", "onClick: "+total_row)
 
-               if(exp_hasil.size < total_row){
-                   Toast.makeText(this, "Array Penyakit yang diinputkan (${exp_hasil.size}) tidak boleh kurang dari "+total_row.toString(), Toast.LENGTH_LONG).show()
-                   binding.inputArrayPenyakitAdmin.requestFocus()
-               }else if(exp_hasil.size > total_row){
-                   Toast.makeText(this, "Array Penyakit yang diinputkan (${exp_hasil.size}) tidak boleh lebih dari "+total_row.toString(), Toast.LENGTH_LONG).show()
-                   binding.inputArrayPenyakitAdmin.requestFocus()
-               }else{
-                   for (i in exp_hasil)
-                   {
-                       listHasil.add(i.trim().toInt())
+                if (exp_hasil.size < total_row) {
+                    Toast.makeText(
+                        this,
+                        "Array Penyakit yang diinputkan (${exp_hasil.size}) tidak boleh kurang dari " + total_row.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    binding.inputArrayPenyakitAdmin.requestFocus()
+                } else if (exp_hasil.size > total_row) {
+                    Toast.makeText(
+                        this,
+                        "Array Penyakit yang diinputkan (${exp_hasil.size}) tidak boleh lebih dari " + total_row.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    binding.inputArrayPenyakitAdmin.requestFocus()
+                } else {
+                    for (i in exp_hasil) {
+                        listHasil.add(i.trim().toInt())
 //                       Log.d("Array_Hasil_Insert", "onClick: "+i)
-                   }
+                    }
 
 //                   Log.d("Array_Hasil_Insert", "onClick: "+listHasil.size)
 
-                   val hasil = Hasil(id.toInt(), penyakit, pict, solusi, listHasil)
+                    val hasil = Hasil(id.toInt(), penyakit, pict, pict2, pict3, solusi, listHasil)
 
-                   db.collection("hasil")
-                       .document(id)
-                       .set(hasil)
-                       .addOnSuccessListener {
-                           Toast.makeText(
-                               this,
-                               "Data penyakit ditambahkan!",
-                               Toast.LENGTH_SHORT
-                           ).show()
-                           finish()
-                       }
-                       .addOnFailureListener { e ->
-                           Toast.makeText(
-                               this,
-                               "Gagal: ${e.message}",
-                               Toast.LENGTH_SHORT
-                           ).show()
-                       }
-               }
+                    db.collection("hasil")
+                        .document(id)
+                        .set(hasil)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                this,
+                                "Data penyakit ditambahkan!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(
+                                this,
+                                "Gagal: ${e.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }
 
-           }
+            }
+            R.id.btnMasukkanArray -> {
+                showArrayDialog()
+            }
         }
     }
 
+    private fun showArrayDialog() {
+        val arrayInputDialog = AlertDialog.Builder(this)
+        arrayInputDialog.setTitle("Masukkan Array")
+        val input = EditText(this)
+        arrayInputDialog.setView(input)
 
+        arrayInputDialog.setPositiveButton("OK") { dialog, which ->
+            val inputText = input.text.toString()
+            binding.inputArrayPenyakitAdmin.setText(inputText)
+        }
+
+        arrayInputDialog.setNegativeButton("Batal") { dialog, which ->
+            dialog.cancel()
+        }
+
+        arrayInputDialog.show()
+    }
 }

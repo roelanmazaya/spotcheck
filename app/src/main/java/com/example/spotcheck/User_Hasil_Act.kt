@@ -27,7 +27,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.Executors
 
-
 class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: UserHasilPageBinding
     private lateinit var auth: FirebaseAuth
@@ -36,8 +35,10 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: UserHasilViewModel
     private lateinit var prefManager: PrefManager
     private lateinit var db: FirebaseFirestore
-    var last_id = 0
+    private var last_id = 0
     private lateinit var riwayat: Riwayat
+    private var currentImageIndex = 0
+    private var imageUrls: List<String> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +52,7 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
         auth = Firebase.auth
         hasilJawaban = intent.getIntegerArrayListExtra("hasil_penyakit") ?: ArrayList()
 
-        Log.d("Hasil Jawaban", "onCreate: "+hasilJawaban)
+        Log.d("Hasil Jawaban", "onCreate: $hasilJawaban")
 
         db = Firebase.firestore
         db.collection("riwayat").orderBy("id", Query.Direction.DESCENDING).limit(1).get()
@@ -71,13 +72,14 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
                 ).show()
             }
 
-
         firestore = FirebaseFirestore.getInstance()
         binding.btnbacktohome.setOnClickListener(this)
+        binding.btnBackHasil.setOnClickListener(this)
+        binding.btnNextHasil.setOnClickListener(this)
         val firestoreRepo = FirestoreRepositoryHasil()
         firestoreRepo.getDataResults { dataResults ->
             if (dataResults.isNotEmpty()) {
-                Log.d("Data Result e ", "onCreate: "+dataResults)
+                Log.d("Data Result e ", "onCreate: $dataResults")
                 viewModel.calculateKNN(hasilJawaban, dataResults, 1)
                 viewModel.hasilPenyakit.observe(this) { hasilJawaban ->
                     val exp = hasilJawaban!!.split("|").toTypedArray()
@@ -86,10 +88,12 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
                     val hasil = exp[0]
                     val solusi = exp[1]
                     val pict = exp[2]
-                    val docId = last_id+1
+                    val pict2 = exp[3]
+                    val pict3 = exp[4]
+                    val docId = last_id + 1
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                     val now = LocalDateTime.now().format(formatter)
-                    val riwayat = Riwayat(docId, user_id, hasil, pict, solusi, now)
+                    val riwayat = Riwayat(docId, user_id, hasil, pict, pict2, pict3, solusi, now)
 
                     db.collection("riwayat")
                         .document(docId.toString())
@@ -103,44 +107,14 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
 
                     binding.txHasilPenyakit.text = exp[0]
                     binding.txSolusiPenyakit.setMovementMethod(ScrollingMovementMethod())
-                    binding.txSolusiPenyakit.text = Html.fromHtml("Solusi: "+exp[1]+"")
-                    Log.d("URL Picture", "onCreate: "+exp[2])
+                    binding.txSolusiPenyakit.text = Html.fromHtml("Solusi: ${exp[1]}")
+                    Log.d("URL Picture", "onCreate: ${exp[2]}")
+                    Log.d("URL Picture", "onCreate: ${exp[3]}")
+                    Log.d("URL Picture", "onCreate: ${exp[4]}")
 
-                    // Declaring executor to parse the URL
-                    val executor = Executors.newSingleThreadExecutor()
+                    imageUrls = listOf(exp[2], exp[3], exp[4])
 
-                    // Once the executor parses the URL
-                    // and receives the image, handler will load it
-                    // in the ImageView
-                    val handler = Handler(Looper.getMainLooper())
-
-                    // Initializing the image
-                    var image: Bitmap? = null
-
-                    // Only for Background process (can take time depending on the Internet speed)
-                    executor.execute {
-
-                        // Image URL
-                        val imageURL = exp[2]
-
-                        // Tries to get the image and post it in the ImageView
-                        // with the help of Handler
-                        try {
-                            val `in` = java.net.URL(imageURL).openStream()
-                            image = BitmapFactory.decodeStream(`in`)
-
-                            // Only for making changes in UI
-                            handler.post {
-                                binding.imgHasilPenyakit.setImageBitmap(image)
-                            }
-                        }
-
-                        // If the URL doesnot point to
-                        // image or any other kind of failure
-                        catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    }
+                    displayImageByIndex(currentImageIndex)
                 }
             } else {
                 runOnUiThread {
@@ -150,22 +124,64 @@ class User_Hasil_Act : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnbacktohome -> {
                 val intent = Intent(this@User_Hasil_Act, User_Dashboard::class.java)
                 startActivity(intent)
             }
+            R.id.btnBackHasil -> {
+                if (currentImageIndex > 0) {
+                    currentImageIndex--
+                    displayImageByIndex(currentImageIndex)
+                }
+            }
+            R.id.btnNextHasil -> {
+                val totalImages = imageUrls.size
+                if (currentImageIndex < totalImages - 1) {
+                    currentImageIndex++
+                    displayImageByIndex(currentImageIndex)
+                }
+            }
         }
     }
 
-    private fun checkLogin(){
-        if (prefManager.isLogin() == false){
+    private fun checkLogin() {
+        if (prefManager.isLogin() == false) {
             val intent = Intent(this, LoginAct::class.java)
             startActivity(intent)
             finish()
         }
     }
 
+    private fun displayImageByIndex(index: Int) {
+        if (index < imageUrls.size) {
+            val imageURL = imageUrls[index]
+
+            // Declaring executor to parse the URL
+            val executor = Executors.newSingleThreadExecutor()
+
+            // Once the executor parses the URL
+            // and receives the image, handler will load it
+            // in the ImageView
+            val handler = Handler(Looper.getMainLooper())
+
+            // Only for Background process (can take time depending on the Internet speed)
+            executor.execute {
+                // Tries to get the image and post it in the ImageView
+                // with the help of Handler
+                try {
+                    val `in` = java.net.URL(imageURL).openStream()
+                    val image = BitmapFactory.decodeStream(`in`)
+
+                    // Only for making changes in UI
+                    handler.post {
+                        binding.imgHasilPenyakit.setImageBitmap(image)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
 }

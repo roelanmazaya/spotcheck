@@ -129,7 +129,7 @@ class Admin_EditPertanyaan : AppCompatActivity(), View.OnClickListener{
 
                             var array_hasil: ArrayList<Int>
 
-                            array_hasil = hasil.array_hasil!!
+                            array_hasil = (hasil.array_hasil as ArrayList<Int>?)!!
                             listHasil = ArrayList()
 
                             Log.d("Hasil", "update_hasil: "+hasil.hasil+", Jml Array Hasil : "+array_hasil.size)

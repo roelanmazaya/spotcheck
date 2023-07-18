@@ -9,23 +9,23 @@ import android.widget.TextView
 import com.example.spotcheck.R
 import com.example.spotcheck.models.Penyakit
 
-class Adapter_Penyakit (var mCtx: Context, var resource:Int, var items:List<Penyakit>)
-    : ArrayAdapter<Penyakit>( mCtx , resource , items ){
+class Adapter_Penyakit(
+    var mCtx: Context,
+    var resource: Int,
+    var items: List<Penyakit>
+) : ArrayAdapter<Penyakit>(mCtx, resource, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val layoutInflater: LayoutInflater = LayoutInflater.from(mCtx)
+        val view: View = layoutInflater.inflate(resource, null)
+        var tvPenyakit: TextView = view.findViewById(R.id.tvPenyakit)
+        var tvJmlArray: TextView = view.findViewById(R.id.tvJmlArray)
 
-        val layoutInflater : LayoutInflater = LayoutInflater.from(mCtx)
+        var penyakit: Penyakit = items[position]
 
-        val view : View = layoutInflater.inflate(resource , null )
-        var tvPenyakit : TextView = view.findViewById(R.id.tvPenyakit)
-
-
-        var penyakit : Penyakit = items[position]
-
-        tvPenyakit.text = penyakit.id.toString()+". "+penyakit.hasil
-
+        tvPenyakit.text = penyakit.id.toString() + ". " + penyakit.hasil
+        tvJmlArray.text = "Jumlah Array: " + penyakit.array_hasil?.size.toString()
 
         return view
     }
-
 }
