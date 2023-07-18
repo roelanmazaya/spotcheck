@@ -7,10 +7,14 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.spotcheck.adapter.Adapter_InputArray
 import com.example.spotcheck.databinding.AdminTambahpenyakitPageBinding
 import com.example.spotcheck.models.Hasil
+import com.example.spotcheck.models.Pertanyaan_Model
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,6 +32,8 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
     private lateinit var hasil: Hasil
     private var last_id = 0
     var total_row = 0
+    private lateinit var pertanyaanAdapter: Adapter_InputArray
+    private lateinit var pertanyaanList: List<Pertanyaan_Model>
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,16 +63,13 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
                 ).show()
             }
 
-
         db = Firebase.firestore
         db.collection("pertanyaan").get()
             .addOnSuccessListener { result ->
                 if (!result.isEmpty) {
-                    val listDoc: List<DocumentSnapshot> = result.documents
-                    total_row = listDoc.size - 1
-//                       Toast.makeText(this, total_row.toString(), Toast.LENGTH_SHORT).show()
+                    pertanyaanList = result.toObjects(Pertanyaan_Model::class.java)
+                    total_row = pertanyaanList.size - 1
                 }
-
             }
             .addOnFailureListener { e ->
                 Toast.makeText(
@@ -90,13 +93,12 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
                 val pict2 = binding.inputGambarPenyakitAdmin2.text.trim().toString()
                 val pict3 = binding.inputGambarPenyakitAdmin3.text.trim().toString()
                 val solusi = binding.inputSolusiAdmin.text.trim().toString()
-                val arr_hasil = binding.inputArrayPenyakitAdmin.text.trim().toString()
-                val exp_hasil = arr_hasil.split(",")
+                val array_hasil = binding.inputArrayPenyakitAdmin.text.trim().toString()
+                val exp_hasil = array_hasil.split(",")
 
                 var listHasil: ArrayList<Int>
                 listHasil = ArrayList()
                 listHasil.clear()
-//               Log.d("Total Penyakit", "onClick: "+total_row)
 
                 if (exp_hasil.size < total_row) {
                     Toast.makeText(
@@ -115,10 +117,7 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
                 } else {
                     for (i in exp_hasil) {
                         listHasil.add(i.trim().toInt())
-//                       Log.d("Array_Hasil_Insert", "onClick: "+i)
                     }
-
-//                   Log.d("Array_Hasil_Insert", "onClick: "+listHasil.size)
 
                     val hasil = Hasil(id.toInt(), penyakit, pict, pict2, pict3, solusi, listHasil)
 
@@ -150,20 +149,37 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showArrayDialog() {
-        val arrayInputDialog = AlertDialog.Builder(this)
-        arrayInputDialog.setTitle("Masukkan Array")
-        val input = EditText(this)
-        arrayInputDialog.setView(input)
+        val dialogView = layoutInflater.inflate(R.layout.popup_inputarraypenyakit_list, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
 
-        arrayInputDialog.setPositiveButton("OK") { dialog, which ->
-            val inputText = input.text.toString()
-            binding.inputArrayPenyakitAdmin.setText(inputText)
+        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.rvPertanyaan)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+        val adapter = Adapter_InputArray(this, R.layout.popup_inputarraypenyakit, pertanyaanList)
+        recyclerView.adapter = adapter
+
+        builder.setPositiveButton("Simpan") { dialog, _ ->
+            val selectedItems = adapter.getSelectedItems()
+            val arrayBuilder = StringBuilder()
+            for (i in selectedItems.indices) {
+                if (selectedItems[i]) {
+                    arrayBuilder.append("1")
+                } else {
+                    arrayBuilder.append("-1")
+                }
+                if (i != selectedItems.size - 1) {
+                    arrayBuilder.append(",")
+                }
+            }
+            binding.inputArrayPenyakitAdmin.setText(arrayBuilder.toString())
+            dialog.dismiss()
         }
 
-        arrayInputDialog.setNegativeButton("Batal") { dialog, which ->
-            dialog.cancel()
+        builder.setNegativeButton("Batal") { dialog, _ ->
+            dialog.dismiss()
         }
 
-        arrayInputDialog.show()
+        builder.show()
     }
 }
