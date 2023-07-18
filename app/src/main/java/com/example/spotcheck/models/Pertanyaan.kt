@@ -12,3 +12,9 @@ data class Pertanyaan_Model (
     var id         : Int? = null,
     var pertanyaan : String? = null
 )
+
+data class JawabanPertanyaan(
+    val id: Int,
+    val pertanyaan: String,
+    var jawaban: Int? = null // Nilai jawaban: 1 untuk Iya, -1 untuk Tidak, null jika belum dijawab
+)

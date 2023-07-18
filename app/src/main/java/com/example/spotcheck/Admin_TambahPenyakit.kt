@@ -153,7 +153,7 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
 
-        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.rvPertanyaan)
+        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.lvpopup_Pertanyaan)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         val adapter = Adapter_InputArray(this, R.layout.popup_inputarraypenyakit, pertanyaanList)
