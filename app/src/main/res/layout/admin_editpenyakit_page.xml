@@ -211,7 +211,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.079"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editArrayPenyakitAdmin" />
+            app:layout_constraintTop_toBottomOf="@+id/btneditArrayPenyakit" />
 
         <EditText
             android:id="@+id/editArrayPenyakitAdmin"
@@ -228,6 +228,23 @@
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <Button
+            android:id="@+id/btneditArrayPenyakit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#D1727A"
+            android:fontFamily="@font/poppins"
+            android:text="Edit Array"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editArrayPenyakitAdmin"
+            app:layout_constraintVertical_bias="0.037" />
 
         <EditText
             android:id="@+id/editSolusiAdmin"
