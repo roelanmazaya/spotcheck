@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -64,11 +65,11 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
             }
 
         db = Firebase.firestore
-        db.collection("pertanyaan").get()
+        db.collection("pertanyaan").whereNotEqualTo("id", "null").get()
             .addOnSuccessListener { result ->
                 if (!result.isEmpty) {
                     pertanyaanList = result.toObjects(Pertanyaan_Model::class.java)
-                    total_row = pertanyaanList.size - 1
+                    total_row = pertanyaanList.size
                 }
             }
             .addOnFailureListener { e ->
@@ -120,6 +121,7 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
                     }
 
                     val hasil = Hasil(id.toInt(), penyakit, pict, pict2, pict3, solusi, listHasil)
+                    Log.d("Hasil", "onClick: "+hasil)
 
                     db.collection("hasil")
                         .document(id)
@@ -153,11 +155,11 @@ class Admin_TambahPenyakit : AppCompatActivity(), View.OnClickListener {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
 
-        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.lvpopup_Pertanyaan)
+        val lv = dialogView.findViewById<ListView>(R.id.lvpopup_Pertanyaan)
         val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
+//        lv.layoutManager = layoutManager
         val adapter = Adapter_InputArray(this, R.layout.popup_inputarraypenyakit, pertanyaanList)
-        recyclerView.adapter = adapter
+        lv.adapter = adapter
 
         builder.setPositiveButton("Simpan") { dialog, _ ->
             val selectedItems = adapter.getSelectedItems()

@@ -4,10 +4,18 @@ package com.example.spotcheck
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ListView
 import android.widget.SimpleAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.spotcheck.adapter.Adapter_EditArray
+import com.example.spotcheck.adapter.Adapter_InputArray
 import com.example.spotcheck.databinding.AdminEditpenyakitPageBinding
+import com.example.spotcheck.models.Pertanyaan
+import com.example.spotcheck.models.Pertanyaan_Model
+import com.example.spotcheck.models.Pertanyaan_Model_Edit
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -29,6 +37,9 @@ class Admin_EditPenyakit : AppCompatActivity(), View.OnClickListener{
     private lateinit var adapter: SimpleAdapter
     private lateinit var auth: FirebaseAuth
     private var currentUser: FirebaseUser? = null
+    private lateinit var pertanyaanAdapter: Adapter_InputArray
+    private lateinit var pertanyaan: Pertanyaan
+    private var listPertanyaan = mutableListOf<Pertanyaan_Model_Edit>()
 
     private val COLLECTION = "hasil"
     private val F_ID = "id"
@@ -79,13 +90,24 @@ class Admin_EditPenyakit : AppCompatActivity(), View.OnClickListener{
 
         binding.btnEditPenyakitAdmin.setOnClickListener(this)
         binding.btnHapusPenyakitAdmin.setOnClickListener(this)
+        binding.btnEditArrayPenyakit.setOnClickListener(this)
 
         db = Firebase.firestore
-        db.collection("pertanyaan").get()
+        db.collection("pertanyaan").whereNotEqualTo("id", "null").get()
             .addOnSuccessListener { result ->
                 if (!result.isEmpty) {
                     val listDoc: List<DocumentSnapshot> = result.documents
-                    total_row = listDoc.size - 1
+                    total_row = listDoc.size
+                    var arrayHasil = intent.getStringExtra("array_hasil")
+                    val exp = arrayHasil!!.split(",").toTypedArray()
+                    var i = 0;
+                    for (d in listDoc) {
+                        if(i <= total_row){
+                            pertanyaan = d.toObject(Pertanyaan::class.java)!!
+                            listPertanyaan.add(Pertanyaan_Model_Edit(d.id, pertanyaan.id, pertanyaan.pertanyaan, exp[i].trim().toInt()))
+                        }
+                        i++
+                    }
 //                    Toast.makeText(this, total_row.toString(), Toast.LENGTH_SHORT).show()
                 }
 
@@ -174,6 +196,10 @@ class Admin_EditPenyakit : AppCompatActivity(), View.OnClickListener{
                         ).show()
                     }
             }
+            R.id.btnEditArrayPenyakit -> {
+                showArrayDialog()
+//                Toast.makeText(this, "Popup", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -183,6 +209,41 @@ class Admin_EditPenyakit : AppCompatActivity(), View.OnClickListener{
         db.collection(COLLECTION).addSnapshotListener { querySnapshot, e ->
             if (e != null) Log.d("fireStore", e.localizedMessage)
         }
+    }
+
+    private fun showArrayDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.popup_inputarraypenyakit_list, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+
+        val lv = dialogView.findViewById<ListView>(R.id.lvpopup_Pertanyaan)
+        val layoutManager = LinearLayoutManager(this)
+//        lv.layoutManager = layoutManager
+        val adapter = Adapter_EditArray(this, R.layout.popup_inputarraypenyakit, listPertanyaan)
+        lv.adapter = adapter
+
+        builder.setPositiveButton("Simpan") { dialog, _ ->
+            val selectedItems = adapter.getSelectedItems()
+            val arrayBuilder = StringBuilder()
+            for (i in selectedItems.indices) {
+                if (selectedItems[i]) {
+                    arrayBuilder.append("1")
+                } else {
+                    arrayBuilder.append("-1")
+                }
+                if (i != selectedItems.size - 1) {
+                    arrayBuilder.append(",")
+                }
+            }
+            binding.editArrayPenyakitAdmin.setText(arrayBuilder.toString())
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Batal") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.show()
     }
 
 

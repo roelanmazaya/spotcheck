@@ -63,7 +63,7 @@ class Admin_TambahPertanyaan : AppCompatActivity(), View.OnClickListener{
                 val p = binding.InputPertanyaanAdmin.text.trim().toString()
                 val pertanyaan = Pertanyaan(id.toInt(), p)
 
-
+                Log.d("Tambah Pertanyaan", "onClick: "+pertanyaan)
                 db.collection("pertanyaan")
                     .document(id)
                     .set(pertanyaan)
@@ -92,7 +92,7 @@ class Admin_TambahPertanyaan : AppCompatActivity(), View.OnClickListener{
                     var i = 1
                     for (d in listDoc)
                     {
-                        Log.d("Hasil", "update_hasil: ${d.id}")
+                        Log.d("Tambah Pertanyaan Hasil", "update_hasil: ${d.id}")
 
                         if(i <= total_row)
                         {
@@ -104,7 +104,7 @@ class Admin_TambahPertanyaan : AppCompatActivity(), View.OnClickListener{
                             array_hasil = (hasil.array_hasil as ArrayList<Int>?)!!
                             listHasil = ArrayList()
 
-                            Log.d("Hasil", "update_hasil: "+hasil.hasil+", Jml Array Hasil : "+array_hasil.size)
+                            Log.d("Tambah Pertanyaan Hasil", "update_hasil: "+hasil.hasil+", Jml Array Hasil : "+array_hasil.size)
 
                             for (j in array_hasil)
                             {
@@ -115,10 +115,12 @@ class Admin_TambahPertanyaan : AppCompatActivity(), View.OnClickListener{
                             //menambahkan array list hasil baru
                             listHasil.add(-1)
 
-                            Log.d("Hasil", "update_hasil: "+hasil.hasil+", Jml Array Hasil Baru : "+listHasil.size)
+                            Log.d("Tambah Pertanyaan Hasil", "update_hasil: "+hasil.hasil+", Jml Array Hasil Baru : "+listHasil.size)
 
                             val tp = HashMap<String, Any>()
                             tp["array_hasil"] = listHasil
+
+                            Log.d("Tambah Pertanyaan Hasil", "update_hasil: "+hasil.hasil+", Jml Array Hasil Baru : "+tp)
 
                             db = Firebase.firestore
                             db.collection("hasil").document(d.id).update(tp)

@@ -49,6 +49,7 @@ class Admin_Pertanyaan : AppCompatActivity(), View.OnClickListener {
 
     fun get_pertanyaan(){
         listPertanyaan.clear()
+        listAdapter.clear()
         db = Firebase.firestore
         db.collection("pertanyaan").get()
             .addOnSuccessListener { result ->
@@ -64,7 +65,6 @@ class Admin_Pertanyaan : AppCompatActivity(), View.OnClickListener {
                         }
                         i++
                     }
-
                     listAdapter.notifyDataSetChanged()
 
                 }

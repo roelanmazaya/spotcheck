@@ -10,12 +10,13 @@ import android.widget.RadioButton
 import android.widget.TextView
 import com.example.spotcheck.R
 import com.example.spotcheck.models.Pertanyaan_Model
+import com.example.spotcheck.models.Pertanyaan_Model_Edit
 
-class Adapter_InputArray(
+class Adapter_EditArray(
     var mCtx: Context,
     var resource: Int,
-    var items: List<Pertanyaan_Model>
-) : ArrayAdapter<Pertanyaan_Model>(mCtx, resource, items) {
+    var items: List<Pertanyaan_Model_Edit>
+) : ArrayAdapter<Pertanyaan_Model_Edit>(mCtx, resource, items) {
 
     private val selectedItems = mutableMapOf<Int, Boolean>()
 
@@ -35,7 +36,7 @@ class Adapter_InputArray(
         val rbIya: RadioButton = view.findViewById(R.id.radiobtn_popup_iya)
         val rbTidak: RadioButton = view.findViewById(R.id.radiobtn_popup_tidak)
 
-        val pertanyaanPopup: Pertanyaan_Model = items[position]
+        val pertanyaanPopup: Pertanyaan_Model_Edit = items[position]
 
         Log.d("popup pertanyaan", "getView: "+items[position])
 
@@ -56,6 +57,15 @@ class Adapter_InputArray(
             }
 
             // Set the initial selected state for each radio button
+
+            if(pertanyaanPopup.hasil==1){
+                selectedItems[position] = true
+                rbTidak.isChecked = false
+            }else{
+                selectedItems[position] = false
+                rbIya.isChecked = false
+            }
+
             val selected = selectedItems[position] ?: false
             rbIya.isChecked = selected
             rbTidak.isChecked = !selected
